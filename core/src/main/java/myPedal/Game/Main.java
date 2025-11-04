@@ -44,6 +44,9 @@ public class Main extends ApplicationAdapter {
 
     private long startTime;
 
+
+    private int level = 1;
+
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -91,6 +94,14 @@ public class Main extends ApplicationAdapter {
         lastObstacleTime = TimeUtils.nanoTime();
     }
 
+    private void updateLevel() {
+        int newLevel = (score / 10) + 1; 
+        if (newLevel != level) {
+            level = newLevel;
+            backgroundSpeed = 200f + (level - 1) * 50f; 
+        }
+    }
+
     @Override
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -122,6 +133,7 @@ public class Main extends ApplicationAdapter {
                 if (obs.y + obs.height < 0) {
                     iter.remove();
                     score++;
+                    updateLevel(); 
                 }
 
                 if (obs.overlaps(bike)) {
@@ -142,6 +154,7 @@ public class Main extends ApplicationAdapter {
         long elapsed = (TimeUtils.millis() - startTime) / 1000;
         font.draw(batch, "Pontuação: " + score, 20, bgHeight - 20);
         font.draw(batch, "Tempo: " + elapsed + "s", 20, bgHeight - 60);
+        font.draw(batch, "Nível: " + level, 20, bgHeight - 100); 
 
         if (gameOver) {
             font.setColor(Color.RED);
