@@ -36,7 +36,7 @@ public class MainMenuScreen implements Screen {
         table.setFillParent(true);
         stage.addActor(table);
 
-        Label title = new Label("MY PEDAL GAME", labelStyle);
+        Label title = new Label("Ride & Recover", labelStyle);
 
         TextButton startBtn = new TextButton("Iniciar Jogo", btnStyle);
         TextButton continueBtn = new TextButton("Continuar", btnStyle);
