@@ -310,14 +310,12 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        // Abrir PauseScreen
         if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             if (backgroundMusic.isPlaying()) backgroundMusic.pause();
             game.setScreen(new PauseScreen(game, level, this));
             return;
         }
 
-        // Fase completa
         if (phaseCompleted) {
             batch.begin();
             font.setColor(Color.GREEN);
@@ -374,7 +372,6 @@ public class GameScreen implements Screen {
         if (doublePointsActive && TimeUtils.millis() > doublePointsEndTime)
             doublePointsActive = false;
 
-        // ------------------- Obstáculos -------------------
         Iterator<Rectangle> iter = obstacles.iterator();
         while (iter.hasNext()) {
             Rectangle obs = iter.next();
@@ -385,7 +382,6 @@ public class GameScreen implements Screen {
                 return;
             }
 
-            // Atualiza progresso sempre que obstáculo sai da tela
             if (obs.y + obs.height < 0) {
                 iter.remove();
                 obstaclesPassed++;
@@ -394,7 +390,6 @@ public class GameScreen implements Screen {
             }
         }
 
-        // ------------------- Estrelas -------------------
         Iterator<Rectangle> starIter = stars.iterator();
         while (starIter.hasNext()) {
             Rectangle star = starIter.next();
@@ -409,7 +404,6 @@ public class GameScreen implements Screen {
             if (star.y + star.height < 0) starIter.remove();
         }
 
-        // ------------------- Renderização -------------------
         batch.begin();
         batch.draw(streetTexture, 0, bgY1, bgWidth, bgHeight);
         batch.draw(streetTexture, 0, bgY2, bgWidth, bgHeight);
